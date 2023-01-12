@@ -22,7 +22,7 @@ console.log(hrefPenEnlace);
 let num = 0;
 for (let i = 0; i < document.getElementsByTagName('a').length; i++) {
     let itemHref = document.getElementsByTagName('a')[i].href;
-    if (itemHref.match(/\/wiki\//)) {
+    if (itemHref.match(/\/wiki\/Municipio/)) {
         num++;
     }
 }
