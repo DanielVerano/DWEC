@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <style>
+        .pregunta {
+            color: blue;
+            font-weight: bold;
+        }
+
+        fieldset:last-of-type {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset>
+        <div class="pregunta">1. ¿Cuántas rectas pasan por un pregunto?</div>
+        <ol type="A">
+
+            <li><input type="radio" name="pregunta1" id="pregunta1-op1">Infinitas.</li>
+
+            <li><input type="radio" name="pregunta1" id="pregunta1-op2">Dos.</li>
+
+            <li><input type="radio" name="pregunta1" id="pregunta1-op3">Depende del tamaño del punto.</li>
+        </ol>
+    </fieldset>
+    <fieldset>
+        <div class="pregunta">2. Por un punto del espacio, ¿cuántas rectas paralelas a una pueden trazarse?</div>
+        <ol type="A">
+            <li><input type="radio" name="pregunta2" id="pregunta2-op1">Ninguna.</li>
+            <li><input type="radio" name="pregunta2" id="pregunta2-op2">Una.</li>
+            <li><input type="radio" name="pregunta2" id="pregunta2-op3">Infinitas.</li>
+        </ol>
+    </fieldset>
+    <fieldset>
+        <div class="pregunta">3. Determine el resultado de la siguiente ecuación: 7x - 28 = 6x - 1</div>
+        <ol type="A">
+            <li><input type="radio" name="pregunta3" id="pregunta3-op1">x=29.</li>
+            <li><input type="radio" name="pregunta3" id="pregunta3-op2">x=27.</li>
+            <li><input type="radio" name="pregunta3" id="pregunta3-op3">x=16.</li>
+        </ol>
+    </fieldset>
+    <fieldset>
+        <button id="enviarTest" type="submit">Resultado del test</button>
+        <button id="resetTest" type="reset">Reiniciar test</button>
+        <button id="respCorrectas">Respuestas correctas</button>
+    </fieldset>
+    <script src="./index.js"></script>
+</body>
+
+</html>

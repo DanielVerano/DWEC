@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table,
+td {
+    border: 1px solid black;
+}
+
+img {
+    width: 200px;
+}
+
+.oculto {
+    visibility: hidden;
+}
+
+.acierto {
+    background-color: green;
+}
