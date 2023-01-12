@@ -8,6 +8,10 @@
 
 // Si cumple con todos los requisitos se considera una contraseña segura, de lo  contrario mostrará que es una contraseña no segura.
 
+// Patrón para comprobar contraseña: ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$
+
+console.info('Ejecutando script string2.js');
+
 // let password = prompt('Introduce una contraseña que cumpla los requisitos:', '');
 let password = process.argv.slice(2)[0];
 
@@ -80,9 +84,11 @@ function contrasenaEsSegura(password) {
         tieneNumero(password) && tieneSimbolo(password);
 }
 
-(contrasenaEsSegura(password)) ? console.log('Tu contraseña es segura') : console.log('Tu contraseña no es segura');
+(contrasenaEsSegura(password)) ? console.log('Tu contraseña es segura') : console.log('Tu contraseña no cumple con alguno de los requisitos');
 
 // console.log(tieneLetraMayuscula(password));
 // console.log(tieneLetraMinuscula(password));
 // console.log(tieneNumero(password));
 // console.log(tieneSimbolo(password));
+
+console.info('Saliendo del script string2-js');

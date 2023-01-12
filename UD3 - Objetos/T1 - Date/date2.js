@@ -8,25 +8,26 @@ console.info('Ejecutando script date2.js');
 let dia = +process.argv.slice(2)[0];
 let mes = +process.argv.slice(2)[1];
 
-if (diaEsCorrecto(dia) && mesEsCorrecto(mes)) {
-    const anioFinal = 2100;
-    let diaActual;
-    let fechaCumpleanos = new Date();
-    const anioActual = fechaCumpleanos.getFullYear();
-
-    fechaCumpleanos.setMonth(mes - 1, dia);
-
-    for (let i = anioActual + 1; i <= anioFinal; i++) {
-        fechaCumpleanos.setFullYear(i);
-        diaActual = fechaCumpleanos.getDay();
-
-        if (diaActual === 0) {
-            console.log(`Tu cumpleaños caerá en domingo en el año ${fechaCumpleanos.getFullYear()}`);
-        }
-    }
-} else {
-    alert('El formato de los datos introducidos no son correctos');
+if (!diaEsCorrecto(dia) || !mesEsCorrecto(mes)) {
+    console.error('El formato de los datos introducidos no son correctos');
+    return;
 }
+
+const anioFinal = 2100;
+let diaActual;
+let fechaCumpleanos = new Date();
+const anioActual = fechaCumpleanos.getFullYear();
+fechaCumpleanos.setMonth(mes - 1, dia);
+
+for (let i = anioActual + 1; i <= anioFinal; i++) {
+    fechaCumpleanos.setFullYear(i);
+    diaActual = fechaCumpleanos.getDay();
+
+    if (diaActual === 0) {
+        console.log(`Tu cumpleaños caerá en domingo en el año ${fechaCumpleanos.getFullYear()}`);
+    }
+}
+
 console.info('Saliendo del script date2.js');
 
 /**
