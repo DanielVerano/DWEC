@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Introduzca los datos para generar la tabla:</h2>
+    <div>
+        <label for="cols">Número de columnas:</label>
+        <input type="text" name="cols" id="cols">
+    </div>
+    <div>
+        <label for="rows">Número de filas:</label>
+        <input type="text" name="rows" id="rows">
+    </div>
+    <div>
+        <label for="headers">Incluir headers:</label>
+        <input type="checkbox" name="headers" id="headers">
+    </div>
+    <div>
+        <label for="defaultValue">Valor por defecto:</label>
+        <input type="text" name="defaultValue" id="defaultValue">
+    </div>
+    <div>
+        <label for="grosor">Grosor del borde de la tabla:</label>
+        <input type="text" name="grosor" id="grosor">
+    </div>
+    <div>
+        <label for="color">Color del borde:</label>
+        <select name="color" id="color">
+            <option value="black" selected>Negro</option>
+            <option value="red">Rojo</option>
+            <option value="blue">Azul</option>
+            <option value="green">Verde</option>
+        </select>
+    </div>
+    <div>
+        <button id="generar">Generar tabla</button>
+    </div>
+    <hr>
+    <div id="tabla"></div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
