@@ -19,21 +19,32 @@ function cargaContenido(url, metodo) {
     }
 
     if (peticion_http) {
+        // Función que se ejecutará cada vez que cambie el valor del estado de ejecución de la petición
         peticion_http.onreadystatechange = muestraContenido;
-        peticion_http.open(metodo, url, true);
-        peticion_http.send(null);
+        peticion_http.open(metodo, url);
+        peticion_http.send();
     }
 }
 
-function muestraContenido(req) {
+function muestraContenido() {
     if (peticion_http.readyState === READY_STATE_COMPLETE && peticion_http.status === HTTP_STATUS_OK) {
         const textArea = document.getElementById('texto');
         textArea.textContent = peticion_http.responseText;
     }
 }
 
-function descargaArchivo() {
-    cargaContenido("http://localhost:5500/UD7 - Asincronia en JS/T1/holamundo.txt", "GET");
+function mostrarURL() {
+    const urlInput = document.getElementById('url');
+    urlInput.value = window.location.href;
 }
 
-document.getElementById('botonTexto').addEventListener('click', descargaArchivo);
+function descargaArchivo() {
+    cargaContenido("http://localhost:8090/UD7 - Asincronia en JS/T1/ejer1.html", "GET");
+}
+
+function iniciar() {
+    document.getElementById('boton').addEventListener('click', descargaArchivo);
+    mostrarURL();
+}
+
+window.onload = iniciar;
