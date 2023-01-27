@@ -7,4 +7,18 @@
     <anio>2011</anio>
     <terminada>true</terminada>
    </Serie>
+   <Serie>
+    <titulo>Breaking Bad</titulo>
+    <cadena>Netflix</cadena>
+    <director>Vince Gilligan</director>
+    <anio>2008</anio>
+    <terminada>true</terminada>
+   </Serie>
+   <Serie>
+    <titulo>The Last of Us</titulo>
+    <cadena>HBO</cadena>
+    <director>Greg Spence</director>
+    <anio>2023</anio>
+    <terminada>false</terminada>
+   </Serie>   
 </Series>
