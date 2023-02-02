@@ -1,0 +1,23 @@
+[
+    {
+        "titulo": "Juego de Tronos",
+        "cadena": "HBO",
+        "director": "David Benioff, D. B. Weiss",
+        "anio": 2011,
+        "terminada": true
+    },
+    {
+        "titulo": "Breaking Bad",
+        "cadena": "Netflix",
+        "director": "Vince Gilligan",
+        "anio": 2008,
+        "terminada": true
+    },
+    {
+        "titulo": "The Last of Us",
+        "cadena": "HBO",
+        "director": "Greg Spence",
+        "anio": 2023,
+        "terminada": false
+    }
+]
