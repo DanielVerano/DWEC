@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <div>
+            <label for="ccaa">CC.AA.:</label>
+            <select name="ccaa" id="ccaa"></select>
+        </div>
+        <div>
+            <label for="dosis_entregadas">Dosis entregadas:</label>
+            <input type="number" name="dosis_entregadas" id="dosis_entregadas">
+        </div>
+        <div>
+            <label for="dosis_administradas">Dosis administradas:</label>
+            <input type="number" name="dosis_administradas" id="dosis_administradas">
+        </div>
+        <div>
+            <label for="dosis_completa">Dosis completa:</label>
+            <input type="number" name="dosis_completa" id="dosis_completa">
+        </div>
+        <div>
+            <label for="porcentaje_entregadas">Porcentaje entregadas:</label>
+            <input type="number" name="porcentaje_entregadas" id="porcentaje_entregadas">
+        </div>
+        <div>
+            <label for="porcentaje_administradas">Porcentaje administradas:</label>
+            <input type="number" name="porcentaje_administradas" id="porcentaje_administradas">
+        </div>
+        <div>
+            <label for="porcentaje_completa">Porcentaje completa:</label>
+            <input type="number" name="porcentaje_completa" id="porcentaje_completa">
+        </div>
+        <button id="btn_actualizar_com" type="submit">Modificar datos</button>
+    </form>
+    <hr>
+    <button id="btn_XHR">Cargar datos vacunación (XHR)</button>
+    <script src="./index.js"></script>
+</body>
+
+</html>
