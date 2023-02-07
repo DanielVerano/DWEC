@@ -7,42 +7,6 @@ const porcentaje_entregadas = document.getElementById('porcentaje_entregadas');
 const porcentaje_administradas = document.getElementById('porcentaje_administradas');
 const porcentaje_completa = document.getElementById('porcentaje_completa');
 
-function hacerPeticion(metodo, url, datos) {
-    httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = () => {
-        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            procesarJson();
-        }
-    };
-
-    httpRequest.open(metodo, url);
-    if (metodo === 'POST') {
-        httpRequest.setRequestHeader('Content-Type', 'application/json');
-
-        if (!datos) {
-            datos = {
-                ccaa: ccaa.value,
-                dosisEntregadas: dosis_entregadas.value,
-                dosisAdministradas: dosis_administradas.value,
-                dosisPautaCompletada: dosis_completa.value,
-                porcentajeEntregadas: porcentaje_entregadas.value,
-                porcentajePoblacionAdministradas: porcentaje_administradas.value,
-                porcentajePoblacionCompletas: porcentaje_completa.value
-            }
-        }
-        httpRequest.send(JSON.stringify(datos));
-    } else {
-        httpRequest.send();
-    }
-}
-
-function procesarJson() {
-    const datos = JSON.parse(httpRequest.responseText);
-    generarComunidades(datos);
-    hacerPeticion('POST', './insertar_comunidades.php', datos);
-    generarTabla(datos);
-}
-
 function generarComunidades(comunidades) {
     for (const com of comunidades) {
         let opt = document.createElement('option');
@@ -63,7 +27,14 @@ function generarTabla(datos) {
 
     for (const ccaa of datos) {
         let ccaaRow = document.createElement('tr');
-        ccaaRow.innerHTML = `<td>${ccaa.ccaa}</td><td>${ccaa.dosisEntregadas}</td><td>${ccaa.dosisAdministradas}</td><td>${ccaa.dosisPautaCompletada}</td><td>${ccaa.porcentajeEntregadas}</td><td>${ccaa.porcentajePoblacionAdministradas}</td><td>${ccaa.porcentajePoblacionCompletas}</td>`;
+        ccaaRow.innerHTML = `
+        <td>${ccaa.ccaa}</td>
+        <td>${ccaa.dosisEntregadas}</td>
+        <td>${ccaa.dosisAdministradas}</td>
+        <td>${ccaa.dosisPautaCompletada}</td>
+        <td>${ccaa.porcentajeEntregadas}</td>
+        <td>${ccaa.porcentajePoblacionAdministradas}</td>
+        <td>${ccaa.porcentajePoblacionCompletas}</td>`;
         tabla.appendChild(ccaaRow);
     }
 }
@@ -72,7 +43,11 @@ function getComunidades() {
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            const datos = JSON.parse(this.responseText);
+            let datos = JSON.parse(this.responseText);
+            datos.pop(); // Eliminar el último objeto (Totales)
+
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = 'Datos cargados desde la web';
             generarComunidades(datos);
             generarTabla(datos);
             postComunidades(datos);
@@ -82,17 +57,45 @@ function getComunidades() {
     httpRequest.send();
 }
 
+function getComunidadesFetch() {
+    fetch('./latest.json', {
+        method: 'GET',
+    })
+        .then(res => res.json())
+        .then(datos => {
+            generarComunidades(datos);
+            generarTabla(datos);
+            postComunidadesFetch(datos);
+        })
+        .catch(err => console.log(err))
+}
+
 function postComunidades(datos) {
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            const resultado = document.getElementById('resultado');
-            resultado.innerHTML = 'Comunidades actualizadas en la base de datos';
+            // const resultado = document.getElementById('resultado');
+            // resultado.innerHTML = 'Comunidades actualizadas en la base de datos';
         }
     };
     httpRequest.open('POST', './insertar_comunidades.php');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(datos));
+}
+
+function postComunidadesFetch(datos) {
+    fetch('./insertar_comunidades.php', {
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = 'Comunidades actualizadas en la base de datos';
+        })
+        .catch(err => console.log(err))
 }
 
 function updateComunidad() {
@@ -117,7 +120,14 @@ function updateComunidad() {
 
             for (const row of tablaRows) {
                 if (row.firstElementChild.innerHTML === com.ccaa) {
-                    row.innerHTML = `<td>${com_act.ccaa}</td><td>${com_act.dosisEntregadas}</td><td>${com_act.dosisAdministradas}</td><td>${com_act.dosisPautaCompletada}</td><td>${com_act.porcentajeEntregadas}</td><td>${com_act.porcentajePoblacionAdministradas}</td><td>${com_act.porcentajePoblacionCompletas}</td>`;
+                    row.innerHTML = `
+                    <td>${com_act.ccaa}</td>
+                    <td>${com_act.dosisEntregadas}</td>
+                    <td>${com_act.dosisAdministradas}</td>
+                    <td>${com_act.dosisPautaCompletada}</td>
+                    <td>${com_act.porcentajeEntregadas}</td>
+                    <td>${com_act.porcentajePoblacionAdministradas}</td>
+                    <td>${com_act.porcentajePoblacionCompletas}</td>`;
                     break;
                 }
             }
@@ -134,7 +144,9 @@ function iniciar() {
     })
     document.getElementById('btn_actualizar_com').addEventListener('click', () => {
         updateComunidad();
-        // hacerPeticion('POST', './actualizar_comunidad.php');
+    })
+    document.getElementById('btn_fetch').addEventListener('click', () => {
+        getComunidadesFetch();
     })
 }
 
