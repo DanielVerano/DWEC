@@ -1,5 +1,5 @@
 let httpRequest;
-const ccaa = document.getElementById('ccaa');
+const ccaaSelect = document.getElementById('ccaa');
 const dosis_entregadas = document.getElementById('dosis_entregadas');
 const dosis_administradas = document.getElementById('dosis_administradas');
 const dosis_completa = document.getElementById('dosis_completa');
@@ -8,11 +8,12 @@ const porcentaje_administradas = document.getElementById('porcentaje_administrad
 const porcentaje_completa = document.getElementById('porcentaje_completa');
 
 function generarComunidades(comunidades) {
+    ccaaSelect.innerHTML = '';
     for (const com of comunidades) {
         let opt = document.createElement('option');
         opt.setAttribute('value', com.ccaa);
         opt.textContent = com.ccaa;
-        ccaa.appendChild(opt);
+        ccaaSelect.appendChild(opt);
     }
 }
 
@@ -44,13 +45,14 @@ function getComunidades() {
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
             let datos = JSON.parse(this.responseText);
-            datos.pop(); // Eliminar el último objeto (Totales)
 
+            // Filtrar los datos (Eliminar el último objeto Totales y coger solo los campos requeridos)
+            let datos_filtrados = filtrar_datos(datos);
             const resultado = document.getElementById('resultado');
             resultado.innerHTML = 'Datos cargados desde la web';
-            generarComunidades(datos);
-            generarTabla(datos);
-            postComunidades(datos);
+            generarComunidades(datos_filtrados);
+            generarTabla(datos_filtrados);
+            postComunidades(datos_filtrados);
         }
     };
     httpRequest.open('GET', './latest.json');
@@ -63,9 +65,10 @@ function getComunidadesFetch() {
     })
         .then(res => res.json())
         .then(datos => {
-            generarComunidades(datos);
-            generarTabla(datos);
-            postComunidadesFetch(datos);
+            let datos_filtrados = filtrar_datos(datos);
+            generarComunidades(datos_filtrados);
+            generarTabla(datos_filtrados);
+            postComunidadesFetch(datos_filtrados);
         })
         .catch(err => console.log(err))
 }
@@ -100,7 +103,7 @@ function postComunidadesFetch(datos) {
 
 function updateComunidad() {
     let com = {
-        ccaa: ccaa.value,
+        ccaa: ccaaSelect.value,
         dosisEntregadas: dosis_entregadas.value,
         dosisAdministradas: dosis_administradas.value,
         dosisPautaCompletada: dosis_completa.value,
@@ -136,6 +139,25 @@ function updateComunidad() {
     httpRequest.open('POST', './actualizar_comunidad.php');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(com));
+}
+
+function filtrar_datos(datos) {
+    let comunidades = [];
+    datos.forEach(comunidad => {
+        if (comunidad.ccaa !== 'Totales') {
+            let com_filtrada = {
+                ccaa: comunidad.ccaa,
+                dosisEntregadas: comunidad.dosisEntregadas,
+                dosisAdministradas: comunidad.dosisAdministradas,
+                dosisPautaCompletada: comunidad.dosisPautaCompletada,
+                porcentajeEntregadas: comunidad.porcentajeEntregadas,
+                porcentajePoblacionAdministradas: comunidad.porcentajePoblacionAdministradas,
+                porcentajePoblacionCompletas: comunidad.porcentajePoblacionCompletas
+            }
+            comunidades.push(com_filtrada);
+        }
+    });
+    return comunidades;
 }
 
 function iniciar() {
