@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="min">Min.</label>
+    <input type="number" name="min" id="min" min="0" value="5">
+    <label for="max">Max.</label>
+    <input type="number" name="max" id="max" min="0" value="8">
+    <button id="get_xhr">Obtener personajes XHR</button>
+    <button id="get_fetch">Obtener personajes Fetch</button>
+    <hr>
+    <div id="resultado"></div>
+    <hr>
+    <select name="personajes" id="personajes"></select>
+    <button id="get_y_post_episodios">Obtener y guardar episodios</button>
+    <hr>
+    <h1>Ficha de personajes</h1>
+    <div id="ficha"></div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
